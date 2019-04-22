@@ -13,6 +13,7 @@ import {
 import Button from "reactstrap/es/Button";
 import {notifyError, notifyInfo} from "../Toast";
 import CustomLoader from "../CustomLoader";
+import axios from 'axios';
 
 class HTTPClient extends Component {
   constructor(props) {
@@ -23,26 +24,17 @@ class HTTPClient extends Component {
       primary: false,
       danger: false,
       list: [],
+      method:'GET',
+      resourceEndpoint: '',
       requestBody:'',
       responseBody:'',
-      method:'GET',
-      instanceList: [],
-      instanceMap: [],
-      selectedInstance: null,
-      baseURL: '',
-      resourceEndpoint: '',
-      instanceName:'',
-      instanceIP:'',
-      instanceOldName:'',
-      name:'',
-      requestName:'',
-      requestID:'',
       loading: false
     };
     this.onChange = this.onChange.bind(this);
     this.onChangeTextArea = this.onChangeTextArea.bind(this);
     this.onTab = this.onTab.bind(this);
     this.onSend = this.onSend.bind(this);
+    this.onSendSample = this.onSendSample.bind(this);
     this.onPopulate = this.onPopulate.bind(this);
     this.onChangeMethod = this.onChangeMethod.bind(this);
     this.toggleSuccess = this.toggleSuccess.bind(this);
@@ -99,29 +91,45 @@ class HTTPClient extends Component {
   }
   onSend(e) {
     this.setState({
-      loading: true
+      loading: true,
     })
-    let openRequest = {
-      name: this.state.instanceIP+':'+this.state.method+':'+this.state.baseURL+this.state.resourceEndpoint,
-      url: this.state.baseURL+this.state.resourceEndpoint,
-      method: this.state.method,
-      instance: this.state.selectedInstance.id,
-      requestBody: this.state.requestBody
-    };
-    RestClient.post(ENDPOINTS.openRequest, openRequest)
-      .then(data => {
-        if (typeof data == "object")
-          data = JSON.stringify(data, null, "\t");
+    if (this.state.method==='GET') {
+      axios.get( this.state.resourceEndpoint)
+        .then(data => {
+          if (typeof data == "object")
+            data = JSON.stringify(data, null, "\t");
+          this.setState({
+            responseBody: data,
+            loading: false
+          });
+        }).catch(error => {
         this.setState({
-          responseBody: data,
           loading: false
-        });
-      }).catch(error => {
-      this.setState({
-        loading: false
+        })
+        notifyError(''+error)
       })
-      notifyError(''+error)
+    }
+  }
+  onSendSample(e) {
+    this.setState({
+      loading: true,
     })
+    if (this.state.method==='GET') {
+      axios.get(`https://jsonplaceholder.typicode.com/users`)
+        .then(data => {
+          if (typeof data == "object")
+            data = JSON.stringify(data, null, "\t");
+          this.setState({
+            responseBody: data,
+            loading: false
+          });
+        }).catch(error => {
+        this.setState({
+          loading: false
+        })
+        notifyError(''+error)
+      })
+    }
   }
   onPopulate(row) {
     console.log(row)
@@ -139,7 +147,7 @@ class HTTPClient extends Component {
   }
 
   render() {
-    const { instanceList, list, method } = this.state;
+    const { list, method } = this.state;
     let loader;
     if (this.state.loading) {
       loader = <CustomLoader/>
@@ -163,10 +171,6 @@ class HTTPClient extends Component {
         }
       }
     );
-    let options = instanceList.map(
-      instance => {
-        return <button key={instance.id} value={JSON.stringify(instance)} onClick={this.selectInstance} className="dropdown-item" >{instance.name}</button>
-      })
     let view;
     if (method==="POST" || method==="PUT")  {
       view =
@@ -185,7 +189,6 @@ class HTTPClient extends Component {
         </Row>
     }
 
-
     return (
       <div className="animated fadeIn">
         <Row>
@@ -198,6 +201,7 @@ class HTTPClient extends Component {
                 <Row className="format-btn-row">
                   <Col xs="12">
                     <FormGroup>
+                      <Button className="float-right mb-2 btn btn-primary col-2" onClick={this.onSendSample} value="send" outline>Sample Request</Button>
                       <InputGroup>
                         <Input className="col-2" value={this.state.method} onChange={this.onChangeMethod} type="select" name="method" id="method">
                           <option value="GET">GET</option>
@@ -207,8 +211,7 @@ class HTTPClient extends Component {
                           <option value="OPTIONS">OPTIONS</option>
                           <option value="HEAD">HEAD</option>
                         </Input>
-                        <Input className="col-5" type="text" value={this.state.baseURL} onChange={this.onChange} id="baseURL" name="baseURL" placeholder="Base URL" />
-                        <Input className="col-4" type="text" value={this.state.resourceEndpoint} onChange={this.onChange} id="resourceEndpoint" name="resourceEndpoint" placeholder="Resource Endpoint" />
+                        <Input className="col-9" type="text" value={this.state.resourceEndpoint} onChange={this.onChange} id="resourceEndpoint" name="resourceEndpoint" placeholder="Resource Endpoint" />
                         <Button className={this.state.baseURL!==''?"btn btn-primary col-2":"btn btn-primary disabled col-2"} onClick={this.state.baseURL!==''?()=>{this.onSend()}:()=>console.log('Disabled')} value="send" outline>Send Request</Button>
                       </InputGroup>
                     </FormGroup>

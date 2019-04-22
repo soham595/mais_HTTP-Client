@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { RestClient } from '../../../network/rest-client'
 
 class Login extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class Login extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    RestClient.authenticate(this.state.username, this.state.password)
+    {/*RestClient.authenticate(this.state.username, this.state.password)
     .then(data => {
       this.props.history.push("/dashboard");
     }).catch(error => {
@@ -35,7 +34,7 @@ class Login extends Component {
       this.setState({
         login_error: 'Invalid Credentials'
       })
-    })
+    })*/}
   }
   componentDidMount() {
     localStorage.setItem('isLoggedIn', 'False');
