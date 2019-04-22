@@ -4,8 +4,8 @@ import {Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/altiostar-new-logo.png'
-import sygnet from '../../assets/img/brand/altiostar-new-logo.png'
+import logo from '../../assets/img/brand/logo.svg'
+import sygnet from '../../assets/img/brand/logo.svg'
 
 const propTypes = {
   children: PropTypes.node,
