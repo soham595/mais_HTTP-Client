@@ -1,0 +1,224 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui.scss";
+
+// Temp fix for reactstrap
+@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
+
+// If you want to add something do it here
+@import "custom";
+@import "~bootstrap/dist/css/bootstrap.css";
+//Style for EMS component
+.btn-primary {
+  background-color: #20A8D8;
+  color: white;
+}
+.btn-pill {
+  font-size: 0.8em;
+}
+.btn-add {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+.show-select {
+  margin-top: 5px;
+  margin-right: 20px;
+}
+.btn-status {
+  color: white;
+}
+.action-col {
+  margin: 0;
+  justify-content: space-around;
+}
+.irp-action-col .btn {
+  margin-left: 8px;
+}
+.action-td {
+  width: 200px;
+}
+.irp-action-td {
+  width: 250px;
+}
+.instance-action-td {
+  width: 210px;
+}
+table {
+  margin-top: 20px;
+}
+
+//Style for HTTPClient component
+.select-btn {
+  color: black;
+  border: 1px solid #e4e7ea;
+  border-left: none;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.select-input{
+  background-color: white!important;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 32px;
+  left: -187px;
+  width: 220px;
+}
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropdown:visited .dropdown-menu {
+  display: block;
+}
+.dropdown-item:active {
+  color: black;
+  background-color: #e4e7ea;
+}
+
+.http-success {
+  color: white;
+}
+.instance-card {
+  margin-right: 10px;
+}
+.instance-row {
+  margin-bottom: 5%;
+}
+.auth-row {
+  margin-bottom: 8%;
+}
+form {
+  width: 100%;
+}
+.form-select {
+  cursor: pointer;
+}
+.resource-input {
+  width: 70%!important;
+  position: relative;
+}
+.resource-btn {
+  min-width: 90px;
+}
+.format-btn-row {
+  margin-top:2%
+}
+.http-textarea {
+  overflow-y: scroll;
+  height: 200px;
+  resize: none;
+  margin-bottom: 2%;
+}
+.auth-textarea {
+  overflow-y: scroll;
+  height: 200px;
+  width: 100%;
+  resize: none;
+  margin-bottom: 2%;
+}
+.auth-response {
+  outline: none !important;
+  border:1px solid red;
+  box-shadow: 0 0 10px #719ECE;
+}
+hr {
+  margin-top:0;
+  margin-bottom: 5px;
+  clear:both;
+  display:block;
+  width: 86%;
+}
+.textarea-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ops-txt {
+  overflow-y: scroll;
+  height: 120px;
+  width: 100%;
+  resize: none;
+  margin-bottom: 2%;
+}
+
+//Login Page
+.login_error {
+  color: red;
+}
+// ie fixes
+@import "ie-fix";
+//Operations Component
+.clear-both {
+  clear: both;
+}
+.modal-http {
+  max-width: 85%;
+  margin: 1.75rem auto;
+}
+.modal-http .modal-body {
+  height: 75vh;
+  overflow-y: scroll;
+}
+.modal-ops {
+  max-width: 85%;
+  margin: 1.75rem auto;
+}
+.modal-ops .modal-body {
+  height: 75vh;
+  overflow-y: scroll;
+}
+.modal-ops .modal-header {
+  padding: 10px 5px 5px 5px;
+}
+.modal-ops .modal-footer {
+  padding: 8px;
+}
+.modal-ops .modal-title {
+  margin: auto;
+}
+.modal-ops button.close {
+  margin-left: 0;
+}
+.modal-btn {
+  position: relative;
+}
+//DefaultHeader
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus, .navbar-nav .nav-link:active, .navbar-nav .nav-link .active {
+  color: #20A8D8!important;
+}
+
+.blue {
+  color: #20A8D8!important;
+}
+
+//CustomLoader style
+.loader-modal .modal-content {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.42) !important;
+}
+.modal.fade .modal-dialog {
+  transition: none!important;
+
+}
+.loader-modal {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+.custom-loader {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top:0;
+  left: 0;
+  z-index: 2000;
+  background-color: black;
+}
